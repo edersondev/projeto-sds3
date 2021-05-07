@@ -1,5 +1,7 @@
 package com.edersonferreira.dsvendas.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.edersonferreira.dsvendas.dto.SaleDTO;
+import com.edersonferreira.dsvendas.dto.SaleSuccessDTO;
+import com.edersonferreira.dsvendas.dto.SaleSumDTO;
 import com.edersonferreira.dsvendas.entities.Sale;
 import com.edersonferreira.dsvendas.repositories.SaleRepository;
 import com.edersonferreira.dsvendas.repositories.SellerRepository;
@@ -25,5 +29,15 @@ public class SaleService {
 		sellerRepository.findAll();
 		Page<Sale> result = repository.findAll(pageable);
 		return result.map(x -> new SaleDTO(x));
+	}
+	
+	@Transactional(readOnly = true)
+	public List<SaleSumDTO> amountGroupedBySeller() {
+		return repository.amountGroupedBySeller();
+	}
+	
+	@Transactional(readOnly = true)
+	public List<SaleSuccessDTO> successGroupedBySeller() {
+		return repository.successGroupedBySeller();
 	}
 }
