@@ -1,0 +1,14 @@
+version: '3'
+services:
+  dbpostgres:
+    image: postgres:12-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdsvendas:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 1234567
+      POSTGRES_DB: dsvendas
+    restart: unless-stopped
+volumes:
+  dbdsvendas:
